@@ -1,7 +1,8 @@
 from selenium import webdriver
 from selenium.webdriver.firefox.options import Options
-
-class WebsiteParserInterface:
+from abc import ABC, abstractmethod
+from selenium.webdriver.common.by import By
+class WebsiteParserInterface(ABC):
     def __init__(self, given_url: str):
         self._url = given_url
         # self._webdriver = webdriver.Firefox()
@@ -13,11 +14,9 @@ class WebsiteParserInterface:
     def __del__(self):
         self._browser.close()
 
+    @abstractmethod
     def get_text(self):
         pass
-
-    def get_website(self):
-        pass
-
-    def get_tuple_text_website(self):
-        pass
+    
+    def get_elements_xpath(self, xpath: str):
+        return self._browser.find_elements(By.XPATH, xpath)

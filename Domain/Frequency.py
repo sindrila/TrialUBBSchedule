@@ -7,11 +7,11 @@ class Frequency(Enum):
     UNKNOWN = ""
 
 
-FREQUNCY_MAPPING = {
+FREQUENCY_MAPPING = {
     "sapt. 1": Frequency.FIRST_WEEK,
-    "sapt. 2": Frequency.SECOND_WEEK
+    "sapt. 2": Frequency.SECOND_WEEK,
 }
 
 
 def get_frequency_from_string(string_frequency: str) -> Frequency:
-    return FREQUNCY_MAPPING.get(string_frequency, Frequency.UNKNOWN)
+    return FREQUENCY_MAPPING.get(string_frequency, Frequency.UNKNOWN)

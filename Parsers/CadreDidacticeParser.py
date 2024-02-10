@@ -6,11 +6,9 @@ from Parsers.WebsiteParserInterface import WebsiteParserInterface
 class CadreDidacticeParser(WebsiteParserInterface):
     def __init__(self, given_url : str):
         super().__init__(given_url)
-        self._elements = []
-        self.find_elements_xpath("//tbody//a")
+        self._elements = self.get_elements_xpath("//table/tbody/tr[position() > 1]/td[position() <= 8]")
 
-    def find_elements_xpath(self, xpath: str):
-        self._elements = self._browser.find_elements(By.XPATH, xpath)
+
 
     def get_text(self):
         '''

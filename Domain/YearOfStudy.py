@@ -65,3 +65,6 @@ class YearOfStudy:
     @line_of_study.setter
     def line_of_study(self, line_of_study: str) -> None:
         self._line_of_study = LINE_OF_STUDY_MAPPING.get(line_of_study, LineOfStudy.UNKNOWN)
+
+    def __str__(self):
+        return f"{self.year} {self.faculty} - linia de studiu {self.line_of_study}"

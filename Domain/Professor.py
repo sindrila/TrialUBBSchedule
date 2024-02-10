@@ -1,4 +1,5 @@
 from enum import Enum
+import re
 
 
 class ProfessorTitle(Enum):
@@ -25,12 +26,22 @@ def get_title_from_string(string_title: str) -> ProfessorTitle:
     return TITLE_MAPPING.get(string_title, ProfessorTitle.UNKNOWN)
 
 
+def extract_whole_name_from_header(header: str) -> str:
+    pattern = r'Orar\s+(.*?)(?=\s+[A-Z_]+)'
+
+    match = re.search(pattern, header)
+    if match:
+        return match.group(0)
+    else:
+        return ''
+
+
 class Professor:
     def __init__(self, given_name: str, middle_name: str, family_name: str, title: str) -> None:
         self._given_name = given_name
         self._middle_name = middle_name
         self._family_name = family_name
-        self._title = get_title_from_string(title)
+        self._title: ProfessorTitle = get_title_from_string(title)
 
     @property
     def given_name(self) -> str:
@@ -46,7 +57,7 @@ class Professor:
 
     @property
     def title(self) -> str:
-        return self._title
+        return self._title.value
 
     @family_name.setter
     def family_name(self, family_name: str) -> None:
@@ -63,3 +74,8 @@ class Professor:
     @title.setter
     def title(self, string_title: str) -> None:
         self._title = get_title_from_string(string_title)
+
+    def __str__(self):
+        if self._middle_name:
+            return self.title + ' ' + self.family_name + ' ' + self.given_name + ' ' + self.middle_name
+        return self.title + ' ' + self.family_name + ' ' + self.given_name
