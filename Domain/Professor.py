@@ -4,78 +4,69 @@ import re
 
 class ProfessorTitle(Enum):
     ASISTENT = "Asist."
-    CADRU_DIDACTIC_ASOCIAT = "C.d. asociat"
+    CADRU_DIDACTIC_ASOCIAT = "C.d.asociat"
     LECTOR = "Lect."
     CONFERENTIAR = "Conf."
-    DOCTOR = "Dr."
+    DOCTOR = "Drd."
     PROFESOR = "Prof."
     UNKNOWN = ""
 
 
 TITLE_MAPPING = {
     "Asist.": ProfessorTitle.ASISTENT,
-    "C.d. asociat": ProfessorTitle.CADRU_DIDACTIC_ASOCIAT,
+    "C.d.asociat": ProfessorTitle.CADRU_DIDACTIC_ASOCIAT,
+    "C.": ProfessorTitle.CADRU_DIDACTIC_ASOCIAT,
     "Lect.": ProfessorTitle.LECTOR,
     "Conf.": ProfessorTitle.CONFERENTIAR,
-    "Dr.": ProfessorTitle.DOCTOR,
+    "Drd.": ProfessorTitle.DOCTOR,
     "Prof.": ProfessorTitle.PROFESOR,
 }
 
 
-def get_title_from_string(string_title: str) -> ProfessorTitle:
-    return TITLE_MAPPING.get(string_title, ProfessorTitle.UNKNOWN)
+def get_title_from_title_and_name(title_and_name: str) -> ProfessorTitle:
+    pattern = r'\w+\.'
+    match = re.search(pattern, title_and_name)
+    return TITLE_MAPPING.get(match.group(), ProfessorTitle.UNKNOWN)
 
 
-def extract_whole_name_from_header(header: str) -> str:
-    pattern = r'Orar\s+(.*?)(?=\s+[A-Z_]+)'
+def get_name_from_title_and_name(title_and_name: str) -> str:
+    if title_and_name == "Drd. DoctorandM":
+        return "DoctorandM"
+    if title_and_name == "Drd. Doctorand Info":
+        return "Doctorand Info"
+    if title_and_name == "Drd. Orzan Alexandru":
+        return "Orzan Alexandru"
+    if title_and_name == "C.d.asociat Coste Monica":
+        return "Coste Monica"
 
-    match = re.search(pattern, header)
+    pattern = r'[A-Z]{2,}.*$'
+    match = re.search(pattern, title_and_name)
     if match:
-        return match.group(0)
+        return match.group()
     else:
         return ''
 
 
 class Professor:
-    def __init__(self, given_name: str, middle_name: str, family_name: str, title: str) -> None:
-        self._given_name = given_name
-        self._middle_name = middle_name
-        self._family_name = family_name
-        self._title: ProfessorTitle = get_title_from_string(title)
+    def __init__(self, name: str, title: str) -> None:
+        self._name = name
+        self._title: ProfessorTitle = title
 
     @property
-    def given_name(self) -> str:
-        return self._given_name
-
-    @property
-    def middle_name(self) -> str:
-        return self._middle_name
-
-    @property
-    def family_name(self) -> str:
-        return self._family_name
+    def name(self) -> str:
+        return self._name
 
     @property
     def title(self) -> str:
         return self._title.value
 
-    @family_name.setter
-    def family_name(self, family_name: str) -> None:
-        self._family_name = family_name
-
-    @given_name.setter
-    def given_name(self, given_name: str) -> None:
-        self._given_name = given_name
-
-    @middle_name.setter
-    def middle_name(self, middle_name: str) -> None:
-        self._middle_name = middle_name
+    @name.setter
+    def name(self, name: str) -> None:
+        self._name = name
 
     @title.setter
     def title(self, string_title: str) -> None:
-        self._title = get_title_from_string(string_title)
+        self._title = get_title_from_title_and_name(string_title)
 
     def __str__(self):
-        if self._middle_name:
-            return self.title + ' ' + self.family_name + ' ' + self.given_name + ' ' + self.middle_name
-        return self.title + ' ' + self.family_name + ' ' + self.given_name
+        return self.title + ' ' + self.name

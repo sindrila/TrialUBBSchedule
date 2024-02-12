@@ -12,7 +12,7 @@ class Class(ABC):
         self._day: str = day
         self._starting_hour: int = starting_hour
         self._ending_hour: int = ending_hour
-        self._frequency: Frequency = get_frequency_from_string(frequency)
+        self._frequency: Frequency = frequency
         self._room: Room = room
         self._year_of_study: str = year_of_study
         self._formation: str = formation

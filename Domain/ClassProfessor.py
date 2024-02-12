@@ -17,10 +17,9 @@ class ClassProfessor(Class):
         return self._subject
 
     def __str__(self):
-        # print(self._professor)
         output = "Class" + "\n"
         output += "Day: " + self._day + "\n"
-        output += "Hours: " + str(self._starting_hour) + ":" + str(self._ending_hour) + "\n"
+        output += "Hours: " + str(self._starting_hour) + "-" + str(self._ending_hour) + "\n"
         output += "Frequency: " + str(self._frequency.value) + "\n"
         output += "Room: " + str(self._room) + "\n"
         output += "Year of study: " + self._year_of_study + "\n"
