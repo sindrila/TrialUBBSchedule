@@ -11,7 +11,7 @@ class ClassType(Enum):
 CLASS_TYPE_MAPPING = {
     "Curs": ClassType.COURSE,
     "Seminar": ClassType.SEMINAR,
-    "Laborator": ClassType.LAB,
+    "Laborator": ClassType.LAB
 }
 
 

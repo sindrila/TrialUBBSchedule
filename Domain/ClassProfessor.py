@@ -9,7 +9,7 @@ from Domain.Subject import Subject
 class ClassProfessor(Class):
     def __init__(self, day: str, starting_hour: int, ending_hour: int, frequency: Frequency, room: Room,
                  year_of_study: str, formation: str, class_type: ClassType, subject: Subject):
-        super().__init__(day, starting_hour, ending_hour, frequency, room, year_of_study, formation, class_type)
+        super().__init__(day, int(starting_hour), int(ending_hour), frequency, room, year_of_study, formation, class_type)
         self._subject: Subject = subject
 
     @property
