@@ -10,15 +10,27 @@ class WebsiteParserInterface(ABC):
         self._browser = None
         self._elements = []
 
-    def get_browser(self):
         web_driver_options = Options()
         web_driver_options.add_argument("--headless")
-        self._browser = webdriver.Firefox(options=web_driver_options)
+        self._browser: webdriver.Firefox = webdriver.Firefox(options=web_driver_options)
+
+    def get_browser(self):
         self._browser.get(self._url)
 
     @abstractmethod
     def get_data(self):
         pass
+
+    @property
+    def url(self):
+        return self._url
+
+    @url.setter
+    def url(self, url):
+        self._url = url
+
+    def __del__(self):
+        self._browser.quit()
 
     def get_elements_xpath(self, xpath: str):
         return self._browser.find_elements(By.XPATH, xpath)
