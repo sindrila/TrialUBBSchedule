@@ -8,7 +8,7 @@ from Domain.Frequency import get_frequency_from_string
 from Domain.Room import Room
 
 
-class ProfessorScheduleParserBase(BaseWebsiteParser):
+class ProfessorSchedulePageParser(BaseWebsiteParser):
     def __init__(self, given_url: str):
         '''
         Parser for professor's schedule.

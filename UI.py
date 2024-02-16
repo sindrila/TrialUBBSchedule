@@ -1,14 +1,14 @@
 from Repository.ProfessorScheduleParserRepository import ProfessorScheduleParserRepository
 from Repository.ProfessorSchedulePickleDumpRepository import ProfessorSchedulePickleDumpRepository
 from Repository.Repository import Repository
-from Service.ProfessorScheduleService import ProfessorScheduleService
-from Service.Service import Service
+from Service.ProfessorScheduleCalendarService import ProfessorScheduleCalendarService
+from Service.CalendarService import CalendarService
 
 
 class UI:
     def __init__(self):
         self._repository: Repository = None
-        self._service: Service = None
+        self._service: CalendarService = None
 
     def start(self):
         choice = -1
@@ -20,13 +20,15 @@ class UI:
 
             if choice == 1:
                 self._repository = ProfessorScheduleParserRepository()
-                self._service = ProfessorScheduleService(self._repository)
+                self._service = ProfessorScheduleCalendarService(self._repository)
+                print("Generating calendars...")
                 self._service.generate_calendars()
                 print("Calendars saved in ProfessorCalendars/")
                 choice = 0
             elif choice == 2:
                 self._repository = ProfessorSchedulePickleDumpRepository()
-                self._service = ProfessorScheduleService(self._repository)
+                self._service = ProfessorScheduleCalendarService(self._repository)
+                print("Generating calendars...")
                 self._service.generate_calendars()
                 print("Calendars saved in ProfessorCalendars/")
                 choice = 0

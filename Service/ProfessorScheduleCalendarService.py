@@ -1,17 +1,20 @@
 from Calendar.ProfessorScheduler import ProfessorCalendarCreator
-from Domain.Professor import Professor
-from Parsers.ProfessorPageParser import ProfessorPageParserBase
-from PickleSerializer import PickleSerializer
 from Repository.Repository import Repository
-from Service.Service import Service
+from Service.CalendarService import CalendarService
 
 
-class ProfessorScheduleService(Service):
+class ProfessorScheduleCalendarService(CalendarService):
     def __init__(self, repository: Repository):
+        '''
+        Service for creating calendar schedules for professors.
+        :param repository: Repository with data about professor and classes.
+        '''
         super().__init__(repository)
 
-    def generate_calendars(self):
-        print("Generating calendars...")
+    def generate_calendars(self) -> None:
+        '''
+        Generates calendar schedules for professors and writes them into files.
+        '''
         professors_and_classes = self._repository.get_data()
         index = 0
         for professors_and_class in professors_and_classes:

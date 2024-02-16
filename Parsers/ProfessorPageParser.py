@@ -2,7 +2,7 @@ from Parsers.BaseWebsiteParser import BaseWebsiteParser
 from Domain.Professor import get_name_from_title_and_name
 from Domain.Professor import get_title_from_title_and_name
 from Domain.Professor import Professor
-from Parsers.ProfessorScheduleParser import ProfessorScheduleParserBase
+from Parsers.ProfessorScheduleParser import ProfessorSchedulePageParser
 
 
 class ProfessorPageParserBase(BaseWebsiteParser):
@@ -23,7 +23,7 @@ class ProfessorPageParserBase(BaseWebsiteParser):
 
         # xpath = gets all <a> tags from a table
         self._elements = self.get_elements_xpath("//tbody//tr/td/a")
-        professor_schedule_parser = ProfessorScheduleParserBase("")
+        professor_schedule_parser = ProfessorSchedulePageParser("")
         results = []
         print("Fetching professors and their schedules...")
         index = 0
@@ -38,7 +38,9 @@ class ProfessorPageParserBase(BaseWebsiteParser):
             except AssertionError:
                 raise RuntimeError("Bad parsing. Expected professor " + element.text + " but parsed " + str(professor))
 
+            print(element.get_attribute('href'))
             professor_schedule_parser.url = element.get_attribute('href')
             professor_schedule = professor_schedule_parser.get_data()
             results.append((professor, professor_schedule))
+            print(professor)
         return results
