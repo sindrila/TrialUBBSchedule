@@ -5,6 +5,10 @@ import pytz
 
 class SemesterDates:
     def __init__(self):
+        '''
+        Temporary fix for calculating the current semester date.
+        Hardcoded values, will break for the next university year.
+        '''
         self._starting_year = 2024
         self._ending_year = 2024
 
@@ -93,6 +97,9 @@ class SemesterDates:
         self._ending_day = day
 
     def get_first_week_class_date(self, hour: int, day: str) -> datetime:
+        '''
+        :return: the first week class date for the given hour and day.
+        '''
         year = self._starting_year
         month = self._starting_month_first_week
         day_number = self._starting_day_first_week + self._week_day_to_int_mapping[day]
@@ -106,6 +113,9 @@ class SemesterDates:
         return datetime(year, month, day_number, hour)
 
     def get_second_week_class_date(self, hour: int, day: str) -> datetime:
+        '''
+        :return: the second week class date for the given hour and day.
+        '''
         year = self._starting_year
         month = self._starting_month_second_week
         day_number = self._starting_day_second_week + self._week_day_to_int_mapping[day]
@@ -119,4 +129,7 @@ class SemesterDates:
         return datetime(year, month, day_number, hour)
 
     def get_final_date(self) -> datetime:
+        '''
+        :return: the final date for the current semester date.
+        '''
         return datetime(self._ending_year, self._ending_month, self._ending_day, 23, 59)

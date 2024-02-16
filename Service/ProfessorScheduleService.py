@@ -1,6 +1,6 @@
-from Calendar.ProfessorScheduler import ProfessorScheduler
+from Calendar.ProfessorScheduler import ProfessorCalendarCreator
 from Domain.Professor import Professor
-from Parsers.ProfessorPageParser import ProfessorPageParser
+from Parsers.ProfessorPageParser import ProfessorPageParserBase
 from PickleSerializer import PickleSerializer
 from Repository.Repository import Repository
 from Service.Service import Service
@@ -18,9 +18,8 @@ class ProfessorScheduleService(Service):
             index += 1
             professor = professors_and_class[0]
             classes = professors_and_class[1][1:]
-            professor_scheduler_ical = ProfessorScheduler(classes)
+            professor_scheduler_ical = ProfessorCalendarCreator(classes)
             professor_calendar = professor_scheduler_ical.generate_icalendar_for_schedule()
             file_name = professor.name.replace(' ', '_')
             with open(f'ProfessorCalendars/{file_name}.ics', 'wb') as file:
                 file.write(professor_calendar)
-

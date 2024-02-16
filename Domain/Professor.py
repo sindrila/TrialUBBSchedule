@@ -24,12 +24,24 @@ TITLE_MAPPING = {
 
 
 def get_title_from_title_and_name(title_and_name: str) -> ProfessorTitle:
+    '''
+    From the format '.*TITLE NAME' of a professor, extract the title.
+    :param title_and_name: String representing a professors title and name.
+    :return: String representing a professor's title.
+    '''
     pattern = r'\w+\.'
     match = re.search(pattern, title_and_name)
     return TITLE_MAPPING.get(match.group(), ProfessorTitle.UNKNOWN)
 
 
 def get_name_from_title_and_name(title_and_name: str) -> str:
+    '''
+    From the format '.*TITLE NAME' of a professor, extract the name.
+    :param title_and_name: String representing a professors title and name.
+    :return: String representing a professor's name.
+    '''
+
+    # treat 4 particular cases that are not matched by the regular expression.
     if title_and_name == "Drd. DoctorandM":
         return "DoctorandM"
     if title_and_name == "Drd. Doctorand Info":
@@ -49,6 +61,11 @@ def get_name_from_title_and_name(title_and_name: str) -> str:
 
 class Professor:
     def __init__(self, name: str, title: str) -> None:
+        '''
+        Class representing a professor.
+        :param name: String representing a professor's name.
+        :param title: String representing a professor's title.
+        '''
         self._name = name
         self._title: ProfessorTitle = title
 

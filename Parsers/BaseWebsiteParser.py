@@ -4,8 +4,12 @@ from abc import ABC, abstractmethod
 from selenium.webdriver.common.by import By
 
 
-class WebsiteParserInterface(ABC):
+class BaseWebsiteParser(ABC):
     def __init__(self, given_url: str):
+        '''
+        Base class for a Website Parser.
+        :param given_url: The url of the website.
+        '''
         self._url = given_url
         self._browser = None
         self._elements = []
@@ -30,7 +34,13 @@ class WebsiteParserInterface(ABC):
         self._url = url
 
     def __del__(self):
+        '''
+        Quits the selenium webdriver instance.
+        '''
         self._browser.quit()
 
     def get_elements_xpath(self, xpath: str):
+        '''
+        Get all elements using given xpath.
+        '''
         return self._browser.find_elements(By.XPATH, xpath)

@@ -1,33 +1,30 @@
 import uuid
 from datetime import datetime
-
-from Calendar.AbstractEvent import AbstractEvent
+from Calendar.EventCreator import EventCreator
 from icalendar import Event, vRecur
-
 from Calendar.SemesterDates import SemesterDates
-from Domain.ClassProfessor import ClassProfessor
+from Domain.ProfessorClass import ProfessorClass
 from Domain.Frequency import Frequency
-from Domain.Professor import Professor
 
 
-class ProfessorEvent(AbstractEvent):
-    def __init__(self, given_event: ClassProfessor):
+class ProfessorEventCreator(EventCreator):
+    def __init__(self, given_event: ProfessorClass):
+        '''
+        Format a ProfessorClass into an iCalendar Event.
+        '''
         super().__init__(given_event)
 
-    def create_icalendar_event(self):
+    def create_icalendar_event(self) -> Event:
+        '''
+        :return: An iCalendar event for the given ProfessorClass.
+        '''
         event = Event()
         event.add('uid', uuid.uuid4())
-        '''
-        event.add('summary', f"{self._given_event.class_type.value} - {self._given_event.subject}")
-
-        SUMMARY:Seminar - Tehnologii si platforme Java pentru aplicatii distribuit
- e
-        the summary has a limitation on the size
-        
-        Could cause problems in the future
-        '''
+        # Issue: event.add probably has a maximum buffer size, which causes line breaks (\r\n) in the middle of string.
+        # Not causing any problems on Apple Calendar or Microsoft Outlook. Needs to be tested.
         if self._given_event.class_type.value != "UNKOWN":
-            event.add('summary', f"{self._given_event.class_type.value} - {self._given_event.subject} - {self._given_event.formation} ")
+            event.add('summary',
+                      f"{self._given_event.class_type.value} - {self._given_event.subject} - {self._given_event.formation} ")
         else:
             event.add('summary', self._given_event.subject)
         event.add('location', f"Room {self._given_event.room}")
@@ -35,12 +32,16 @@ class ProfessorEvent(AbstractEvent):
             event.add('description', f"Year {self._given_event.year_of_study}")
 
         current_semester = SemesterDates()
-        first_class_start_date: datetime = current_semester.get_first_week_class_date(self._given_event.starting_hour, self._given_event.day)
-        first_class_end_date: datetime = current_semester.get_first_week_class_date(self._given_event.ending_hour, self._given_event.day)
+        first_class_start_date: datetime = current_semester.get_first_week_class_date(self._given_event.starting_hour,
+                                                                                      self._given_event.day)
+        first_class_end_date: datetime = current_semester.get_first_week_class_date(self._given_event.ending_hour,
+                                                                                    self._given_event.day)
 
         if self._given_event.frequency == Frequency.SECOND_WEEK:
-            first_class_start_date = current_semester.get_second_week_class_date(self._given_event.starting_hour, self._given_event.day)
-            first_class_end_date = current_semester.get_second_week_class_date(self._given_event.ending_hour, self._given_event.day)
+            first_class_start_date = current_semester.get_second_week_class_date(self._given_event.starting_hour,
+                                                                                 self._given_event.day)
+            first_class_end_date = current_semester.get_second_week_class_date(self._given_event.ending_hour,
+                                                                               self._given_event.day)
 
         event.add('dtstart', first_class_start_date)
         event.add('dtend', first_class_end_date)
@@ -55,5 +56,3 @@ class ProfessorEvent(AbstractEvent):
 
         event.add('transp', 'OPAQUE')
         return event
-
-

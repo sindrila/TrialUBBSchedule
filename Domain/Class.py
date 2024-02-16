@@ -2,13 +2,23 @@ from abc import ABC
 
 from Domain.ClassType import ClassType
 from Domain.Frequency import Frequency
-from Domain.Frequency import get_frequency_from_string
 from Domain.Room import Room
 
 
 class Class(ABC):
     def __init__(self, day: str, starting_hour: int, ending_hour: int, frequency: Frequency, room: Room,
                  year_of_study: str, formation: str, class_type: ClassType):
+        '''
+        Represents a class in the schedule.
+        :param day: String representing the day of the week.
+        :param starting_hour: Integer representing the starting hour of the class.
+        :param ending_hour: Integer representing the ending hour of the class.
+        :param frequency: Frequency representing the weekly/first week/second week
+        :param room: Room representing the room in which the class is located.
+        :param year_of_study: String representing the year of the study.
+        :param formation: String representing the formation.
+        :param class_type: ClassType representing the class type.
+        '''
         self._day: str = day
         self._starting_hour: int = int(starting_hour)
         self._ending_hour: int = int(ending_hour)
@@ -83,16 +93,13 @@ class Class(ABC):
         self._class_type = value
 
     def is_same_class_different_formation(self, other):
+        '''
+        Two classes are considered the same if they are at the same time, with the same week frequency.
+        This checks if multiple formations attend a class.
+        :param other: Class to compare.
+        '''
         return (self._day == other.day and
                 self._starting_hour == other.starting_hour and
                 self._ending_hour == other.ending_hour and
                 self._frequency == other.frequency and
                 self._formation != other.formation)
-
-
-    # def __eq__(self, other):
-    #     return (self._day == other.day and
-    #             self._starting_hour == other.starting_hour and
-    #             self._ending_hour == other.ending_hour and
-    #             self._frequency == other.frequency and
-    #             self._formation == other.formation)

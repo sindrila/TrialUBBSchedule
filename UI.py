@@ -32,6 +32,4 @@ class UI:
                 choice = 0
             elif choice != 0:
                 print("Invalid choice. Please try again.")
-
-
         print("Goodbye.")
