@@ -1,5 +1,5 @@
 from Calendar.ScheduleCalendarCreator import ScheduleCalendarCreator
-from Calendar.ProfessorEvent import ProfessorEventCreator
+from Calendar.ProfessorEventCreator import ProfessorEventCreator
 from Domain.ProfessorClass import ProfessorClass
 from icalendar import Calendar
 
@@ -25,7 +25,7 @@ class ProfessorCalendarCreator(ScheduleCalendarCreator):
 
     def generate_icalendar_for_schedule(self) -> Calendar:
         '''
-        :return: iCalendar calendar containing a professor's classes.
+        :return: iCalendar calendar containing professor's classes.
         '''
         cal = Calendar()
         cal.add('prodid', '-//Facultatea de Matematica si Informatica//Orar//RO')

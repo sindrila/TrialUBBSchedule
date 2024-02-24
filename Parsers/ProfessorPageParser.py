@@ -5,7 +5,7 @@ from Domain.Professor import Professor
 from Parsers.ProfessorScheduleParser import ProfessorSchedulePageParser
 
 
-class ProfessorPageParserBase(BaseWebsiteParser):
+class ProfessorPageParser(BaseWebsiteParser):
 
     def __init__(self, given_url: str):
         super().__init__(given_url)
@@ -16,7 +16,7 @@ class ProfessorPageParserBase(BaseWebsiteParser):
 
     def get_data(self) -> list[tuple]:
         '''
-        Parses the list of professor's schedules website using an xpath.
+        Parses professor's schedules website using an xpath.
         :return: A list of tuples containing professor's names and titles and their schedule's url.
         '''
         self.get_browser()
@@ -33,14 +33,8 @@ class ProfessorPageParserBase(BaseWebsiteParser):
             # creates Professor instance with the name and title extracted.
             professor = Professor(get_name_from_title_and_name(element.text),
                                   get_title_from_title_and_name(element.text))
-            try:
-                assert (str(professor) == element.text)
-            except AssertionError:
-                raise RuntimeError("Bad parsing. Expected professor " + element.text + " but parsed " + str(professor))
 
-            print(element.get_attribute('href'))
             professor_schedule_parser.url = element.get_attribute('href')
             professor_schedule = professor_schedule_parser.get_data()
             results.append((professor, professor_schedule))
-            print(professor)
         return results

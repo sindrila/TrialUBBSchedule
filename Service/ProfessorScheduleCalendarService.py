@@ -1,4 +1,4 @@
-from Calendar.ProfessorScheduler import ProfessorCalendarCreator
+from Calendar.ProfessorCalendarCreator import ProfessorCalendarCreator
 from Repository.Repository import Repository
 from Service.CalendarService import CalendarService
 

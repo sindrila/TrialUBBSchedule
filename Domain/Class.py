@@ -3,11 +3,12 @@ from abc import ABC
 from Domain.ClassType import ClassType
 from Domain.Frequency import Frequency
 from Domain.Room import Room
+from Domain.Subject import Subject
 
 
 class Class(ABC):
     def __init__(self, day: str, starting_hour: int, ending_hour: int, frequency: Frequency, room: Room,
-                 year_of_study: str, formation: str, class_type: ClassType):
+                 formation: str, class_type: ClassType, subject: Subject):
         '''
         Represents a class in the schedule.
         :param day: String representing the day of the week.
@@ -15,18 +16,18 @@ class Class(ABC):
         :param ending_hour: Integer representing the ending hour of the class.
         :param frequency: Frequency representing the weekly/first week/second week
         :param room: Room representing the room in which the class is located.
-        :param year_of_study: String representing the year of the study.
         :param formation: String representing the formation.
         :param class_type: ClassType representing the class type.
+        :param subject: Subject representing the name of the class.
         '''
         self._day: str = day
         self._starting_hour: int = int(starting_hour)
         self._ending_hour: int = int(ending_hour)
         self._frequency: Frequency = frequency
         self._room: Room = room
-        self._year_of_study: str = year_of_study
         self._formation: str = formation
         self._class_type: ClassType = class_type
+        self._subject: Subject = subject
 
     @property
     def day(self) -> str:
@@ -69,14 +70,6 @@ class Class(ABC):
         self._room = value
 
     @property
-    def year_of_study(self) -> str:
-        return self._year_of_study
-
-    @year_of_study.setter
-    def year_of_study(self, value: str):
-        self._year_of_study = value
-
-    @property
     def formation(self) -> str:
         return self._formation
 
@@ -91,6 +84,10 @@ class Class(ABC):
     @class_type.setter
     def class_type(self, value: ClassType):
         self._class_type = value
+
+    @property
+    def subject(self):
+        return self._subject
 
     def is_same_class_different_formation(self, other):
         '''
