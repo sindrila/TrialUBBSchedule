@@ -1,0 +1,17 @@
+[tool.poetry]
+name = "trialubbschedule"
+version = "0.1.0"
+description = ""
+authors = ["Mindrila Alex <mihail.mindirla@stud.ubbcluj.ro>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+selenium = "^4.18.1"
+icalendar = "^5.0.11"
+pandas = "^2.2.1"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
