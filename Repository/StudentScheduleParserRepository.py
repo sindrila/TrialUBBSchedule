@@ -1,7 +1,7 @@
 from Parsers.StudentYearPageParser import StudentYearPageParser
 from Repository.PickleSerializer import PickleSerializer
 from Repository.Repository import Repository
-
+from pathlib import Path
 
 class StudentScheduleParserRepository(Repository):
     def __init__(self, student_page: str = 'https://www.cs.ubbcluj.ro/files/orar/2023-2/tabelar/index.html'):
@@ -18,6 +18,7 @@ class StudentScheduleParserRepository(Repository):
         '''
         Serializes the data into a pickle binary file.
         '''
+        Path('StudentCalendars').mkdir(exist_ok=True)
         PickleSerializer.serialize_tuple_data(self._data, 'StudentCalendars/students_dump.pickle')
 
 

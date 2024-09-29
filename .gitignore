@@ -2,7 +2,7 @@
 
 StudentCalendars/*.ics
 ProfessorCalendars/*.ics
-
+**/__pycache__/
 
 shell.nix
 .envrc
