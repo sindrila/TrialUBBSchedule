@@ -1,5 +1,6 @@
 from abc import ABC
 
+
 from Domain.ClassType import ClassType
 from Domain.Frequency import Frequency
 from Domain.Room import Room

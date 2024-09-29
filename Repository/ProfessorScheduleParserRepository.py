@@ -5,7 +5,7 @@ from Repository.Repository import Repository
 
 
 class ProfessorScheduleParserRepository(Repository):
-    def __init__(self, professor_page: str = 'https://www.cs.ubbcluj.ro/files/orar/2023-1/cadre/index.html'):
+    def __init__(self, professor_page: str = 'https://www.cs.ubbcluj.ro/files/orar/2024-1/cadre/index.html'):
         '''
         Repository for professor schedules. Populates data by parsing.
         :param professor_page: URL of professor schedules page
