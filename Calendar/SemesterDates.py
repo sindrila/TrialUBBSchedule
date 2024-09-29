@@ -16,11 +16,11 @@ class SemesterDates:
         self._starting_month_second_week = 10
         self._starting_day_first_week = 30
         self._number_of_days_in_starting_month_first_week = 30
-        self._starting_day_second_week = 6
+        self._starting_day_second_week = 7
         self._number_of_days_in_starting_month_second_week = 31
 
-        self._ending_month = 5
-        self._ending_day = 25
+        self._ending_month = 1
+        self._ending_day = 21
 
         self._week_day_to_int_mapping = {
             'Luni': 0,

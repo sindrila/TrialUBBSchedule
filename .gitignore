@@ -1,7 +1,9 @@
 .idea
 
 StudentCalendars/*.ics
+StudentCalendars/*.pickle
 ProfessorCalendars/*.ics
+.DS_Store
 **/__pycache__/
 
 shell.nix
