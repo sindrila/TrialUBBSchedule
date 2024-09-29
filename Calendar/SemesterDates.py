@@ -10,17 +10,17 @@ class SemesterDates:
         Hardcoded values, will break for the next university year.
         '''
         self._starting_year = 2024
-        self._ending_year = 2024
+        self._ending_year = 2025
 
-        self._starting_month_first_week = 2
-        self._starting_month_second_week = 3
-        self._starting_day_first_week = 26
-        self._number_of_days_in_starting_month_first_week = 29
-        self._starting_day_second_week = 4
+        self._starting_month_first_week = 9
+        self._starting_month_second_week = 10
+        self._starting_day_first_week = 30
+        self._number_of_days_in_starting_month_first_week = 30
+        self._starting_day_second_week = 6
         self._number_of_days_in_starting_month_second_week = 31
 
-        self._ending_month = 6
-        self._ending_day = 30
+        self._ending_month = 5
+        self._ending_day = 25
 
         self._week_day_to_int_mapping = {
             'Luni': 0,

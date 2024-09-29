@@ -4,7 +4,7 @@ from Repository.Repository import Repository
 from pathlib import Path
 
 class StudentScheduleParserRepository(Repository):
-    def __init__(self, student_page: str = 'https://www.cs.ubbcluj.ro/files/orar/2023-2/tabelar/index.html'):
+    def __init__(self, student_page: str = 'https://www.cs.ubbcluj.ro/files/orar/2024-1/tabelar/index.html'):
         '''
         Repository for student schedule parser. Populates data by parsing.
         :param student_page: URL of student schedules page
